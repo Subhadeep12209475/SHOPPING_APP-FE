@@ -28,7 +28,7 @@ export const ProductViewPage = () => {
         if (!product) return;
 
         try {
-            await axios.post("http://localhost:2900/api/v1/cart/add", {
+            await axios.post("https://shopping-app-be-px0z.onrender.com/api/v1/cart/add", {
                 item: {
                     productId: product.id,
                     title: product.title,
