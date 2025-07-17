@@ -20,7 +20,7 @@ export const CartPage = () => {
 
     const handleRemoveFromCart = async (productId) => {
         try {
-            await axios.delete(`https://shopping-app-be-px0z.onrender.com/v1/cart/remove/${productId}`, {
+            await axios.delete(`https://shopping-app-be-px0z.onrender.com/api/v1/cart/remove/${productId}`, {
                 withCredentials: true
             });
             fetchCartItems();
