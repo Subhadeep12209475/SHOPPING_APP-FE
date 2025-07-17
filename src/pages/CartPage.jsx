@@ -8,7 +8,7 @@ export const CartPage = () => {
     const fetchCartItems = async () => {
         setLoading(true);
         try {
-            const res = await axios.get("http://localhost:2900/api/v1/cart/item", {
+            const res = await axios.get("https://shopping-app-be-px0z.onrender.com/api/v1/cart/item", {
                 withCredentials: true
             });
             setCartItems(res.data.items || []);
@@ -20,7 +20,7 @@ export const CartPage = () => {
 
     const handleRemoveFromCart = async (productId) => {
         try {
-            await axios.delete(`http://localhost:2900/api/v1/cart/remove/${productId}`, {
+            await axios.delete(`https://shopping-app-be-px0z.onrender.com/v1/cart/remove/${productId}`, {
                 withCredentials: true
             });
             fetchCartItems();
