@@ -9,6 +9,9 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { CartPage } from "./pages/CartPage"; 
 import { ProductViewPage } from "./pages/ProductViewPage"; 
+// import { OrderSummary } from "./pages/OrderSummary";
+import { PlaceOrderPage } from "./pages/PlaceOrderPage";
+// import {OrderProvider} from "./contexts/OrderContext";
 
 const App = () => {
     const { appLoading, user } = useAppContext();
@@ -44,6 +47,7 @@ const App = () => {
     }
 
     return (
+        //<OrderProvider>
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -51,10 +55,13 @@ const App = () => {
                 <Route path="/login" element={<HomePage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/cart" element={<CartPage />} />
+                {/* <Route path="/place-order" element={<OrderSummary/>}/> */}
                 <Route path="/product/:id" element={<ProductViewPage />} />
+                <Route path="/place-order" element={<PlaceOrderPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </BrowserRouter>
+       // </OrderProvider>
     );
 };
 

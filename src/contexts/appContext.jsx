@@ -12,13 +12,13 @@ const AppContextProvider = ({ children }) => {
     const [appLoading, setAppLoading] = useState(true);
     const [user, setUser] = useState({ isAuthenticated: false });
 
-    // ✅ Cart State with LocalStorage
+    
     const [cartItems, setCartItems] = useState(() => {
         const storedCart = localStorage.getItem("cartItems");
         return storedCart ? JSON.parse(storedCart) : [];
     });
 
-    // ✅ Sync cartItems to localStorage whenever updated
+    
     useEffect(() => {
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }, [cartItems]);
