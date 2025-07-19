@@ -20,16 +20,16 @@ export const CartPage = () => {
         setLoading(false);
     };
 
-    const handleRemoveFromCart = async (productId) => {
-        try {
-            await axios.delete(`${BASE_URL}/cart/remove/${productId}`, {
-                withCredentials: true
-            });
-            fetchCartItems();
-        } catch (error) {
-            console.error("Error removing item", error);
-        }
-    };
+   const handleRemoveFromCart = async (productId) => {
+    try {
+        await axios.delete(`${BASE_URL}/cart/remove/${productId}`, {
+            withCredentials: true
+        });
+        fetchCartItems();
+    } catch (error) {
+        console.error("Error removing item", error);
+    }
+};
 
     const clearEntireCart = async () => {
         try {
