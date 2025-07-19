@@ -67,7 +67,7 @@ export const PlaceOrderPage = () => {
                                 fetchingLocation ? "opacity-50 cursor-not-allowed" : ""
                             }`}
                         >
-                            📍 {fetchingLocation ? "Locating..." : "Auto-Fill"}
+                            📍 {fetchingLocation ? "Locating..." : "Live"}
                         </button>
                     </div>
 
