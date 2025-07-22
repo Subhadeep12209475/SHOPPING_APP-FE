@@ -1,5 +1,7 @@
 import { useLocation, useNavigate } from "react-router";
 import { useState } from "react";
+import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const PlaceOrderPage = () => {
     const { state } = useLocation();
@@ -10,6 +12,7 @@ export const PlaceOrderPage = () => {
     const [address, setAddress] = useState("");
     const [paymentMode, setPaymentMode] = useState("Cash On Delivery");
     const [fetchingLocation, setFetchingLocation] = useState(false);
+    const [email, setEmail] = useState("");   // <-- added email input
 
     const fetchAddressFromCoordinates = async (latitude, longitude) => {
         try {
@@ -41,9 +44,33 @@ export const PlaceOrderPage = () => {
         }
     };
 
-    const handleOrderConfirm = () => {
-        alert(`Order Placed!\nAddress: ${address}\nPayment: ${paymentMode}`);
-        navigate("/");
+    const handleOrderConfirm = async () => {
+        if (!address || !email) {
+            alert("❌ Please enter your delivery address and email.");
+            return;
+        }
+
+        try {
+            await axios.post(
+                `${BASE_URL}/orders/place-order`,
+                {
+                    address,
+                    paymentMode,
+                    grandTotal,
+                    email    
+                },
+                {
+                    withCredentials: true
+                }
+            );
+
+            alert(`✅ Order Placed Successfully! Confirmation email sent.`);
+            navigate("/");
+
+        } catch (error) {
+            console.error("Order placement failed:", error);
+            alert("❌ Failed to place order. Please try again.");
+        }
     };
 
     return (
@@ -53,6 +80,20 @@ export const PlaceOrderPage = () => {
                 <h2 className="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-indigo-600 mb-10 drop-shadow">
                     📦 Place Your Order
                 </h2>
+
+                {/* Email Input Section */}
+                <div className="mb-6">
+                    <label className="block font-bold text-indigo-700 text-lg mb-2">
+                        Your Email:
+                    </label>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="example@example.com"
+                        className="w-full bg-gradient-to-br from-white to-indigo-50 border border-purple-300 rounded-xl px-4 py-3 text-gray-800 font-medium shadow-inner focus:ring-2 focus:ring-pink-400 focus:outline-none transition"
+                    />
+                </div>
 
                 {/* Delivery Address Section */}
                 <div className="mb-8">
@@ -67,7 +108,7 @@ export const PlaceOrderPage = () => {
                                 fetchingLocation ? "opacity-50 cursor-not-allowed" : ""
                             }`}
                         >
-                            📍 {fetchingLocation ? "Locating..." : "Live"}
+                            📍 {fetchingLocation ? "Locating..." : "Live Address"}
                         </button>
                     </div>
 
